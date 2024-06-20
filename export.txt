@@ -1,0 +1,1267 @@
+﻿"xml=<fo:bidi-override direction='ltr' unicode-bidi='bidi-override'><?ACCOUNT_NUMBER?></fo:bidi-override>",
+"Addresp= set define off;
+
+set serveroutput on;
+
+DECLARE
+    v_user_name   VARCHAR2 (30) := UPPER ('RVEMULA');
+BEGIN
+    FOR i
+        IN (SELECT r.responsibility_key     v_resp_key,
+                   a.application_short_name v_app_short_name
+              FROM fnd_responsibility_vl r, fnd_application_vl a
+             WHERE     r.application_id = a.application_id
+                   AND (r.responsibility_name) IN
+                           ('AP Inquiry Asia OU'
+							,'AP Inquiry Global'
+							,'AP Super User AMR'
+							,'AP Super User North America 112'
+							,'Application Developer'
+							,'Application Diagnostics'
+							,'Functional Administrator'
+							,'iProcurement User - ASIA Sales Office - 671'
+							,'LOGI Indirect Supplier Onboarding'
+							,'iProcurement User - North America'
+							,'LOGI iSP integration-Buyer'
+							,'LOGI LSTAR Administrator'
+							,'LOGI LSTAR AMR Super User'
+							,'OM IT - SZL'
+							,'OM Super User - North America'
+							,'Order Management Super User'
+							,'PO Buyer - Direct - LESLE CM - 451'
+							,'PO Buyer - Direct - SZL - 675'
+							,'PO Inquiry - ASIA Sales Office'
+							,'PO IT - North America - 112'
+							,'PO IT - SZL - 675'
+							,'Purchasing Super User'
+							,'Supplier Management Administrator'
+							,'System Administrator'
+							,'Workflow Administrator'
+							,'Workflow Administrator Web (New)'
+							,'Workflow Administrator Web Applications'
+							,'Workflow User Web (New)'
+							,'XML Publisher Administrator'))
+                                                 LOOP
+        fnd_user_pkg.AddResp (username         => v_user_name,
+                              resp_app         => i.v_app_short_name,
+                              resp_key         => i.v_resp_key,
+                              security_group   => 'STANDARD',
+                              description      => NULL,
+                              start_date       => SYSDATE,","addresp1=end_date         => NULL);
+        COMMIT;
+DBMS_OUTPUT.put_line (
+               'Responsibility:'
+            || i.v_resp_key
+            || ' '
+            || 'is added to the User:'
+            || v_user_name);
+    END LOOP;
+	Commit;
+EXCEPTION
+    WHEN OTHERS
+    THEN
+        DBMS_OUTPUT.put_line (
+               'Unable to add the responsibility due to'
+            || SQLCODE
+            || ' '
+            || SUBSTR (SQLERRM, 1, 100));
+        ROLLBACK;
+END;
+/","adduser= set define off;
+
+set serveroutput on;
+
+DECLARE
+    v_user_name    VARCHAR2 (30) := UPPER ('&Enter_User_Name');
+    v_password     VARCHAR2 (30) := '&Enter_Password';
+    v_session_id   INTEGER := USERENV ('sessionid');
+    v_email        VARCHAR2 (30) := UPPER ('&Enter_Email_Id');
+BEGIN
+    fnd_user_pkg.createuser (x_user_name              => v_user_name,
+                             x_owner                  => NULL,
+                             x_unencrypted_password   => v_password,
+                             x_session_number         => v_session_id,
+                             x_start_date             => SYSDATE,
+                             x_end_date               => NULL,
+                             x_email_address          => v_email);
+    COMMIT;
+    DBMS_OUTPUT.put_line ('User:' || v_user_name || 'Created Successfully');
+EXCEPTION
+    WHEN OTHERS
+    THEN
+        DBMS_OUTPUT.put_line (
+               'Unable to create User due to'
+            || SQLCODE
+            || ' '
+            || SUBSTR (SQLERRM, 1, 100));
+        ROLLBACK;
+END;
+/","apache=sudo -u oracle /home/oracle/scripts4dev/bounce_apache_cm.sh adcgnjar
+
+Aik6sai0aa
+
+sudo -u oracle /home/oracle/scripts4dev/bounce_apache_cm.sh apache_bounce","APEX= DEV  : https://apexdev-dev.logitech.com/apex/f?p=4050:1
+QA   : https://apexdev-qa.logitech.com/apex/f?p=4050:1
+PROD : https://apexprod.logitech.com/apex/f?p=4050:1
+workspace name : EBSEXT_WKSPACE",bak=apps/ebs12bak@OA12BAK,"baktns= us01u541.logitech.com
+1521
+OA12BAK","BDC=/*
+OA12BDC
+=========
+apps/ebsl2bdc@OA12BDC
+us01u615.logitech.com
+1531
+OA12BDC
+
+OA12BDC_LFTP:
+==============
+lftp/leadlftp
+us01u615.logitech.com
+1531
+OA12BDC
+
+ORAODSDEV:
+===========
+lftp/lftp
+us01u611.logitech.com
+1525
+Service Name: ORAODSDEV.logitech.com
+Url: https://us01u615.logitech.com:4443/
+*/","bkp= CREATE TABLE apps.OZF_CLAIMS_ALLITSM578BAK1
+TABLESPACE LOGI_BAK
+AS ","burst=DECLARE
+    vReq   NUMBER;
+BEGIN
+    fnd_global.apps_initialize (30222, 20634, 401);
+    vReq :=
+        fnd_request.submit_request ('XDO',
+                                    'XDOBURSTREP',
+                                    NULL,
+                                    NULL,
+                                    FALSE,
+                                    'Y',
+                                    185365299,
+                                    'Y');
+    COMMIT;
+    DBMS_OUTPUT.put_line (' Request ID is ' || vReq);
+END;","c2fo=LFTM.LFTM_C2FO_AWARD_DATA_EXTERNAL
+LFTM.LFTM_C2FO_AWARD_DATA_STAGING
+LFTM.LFTM_C2FO_FUNDING_SOURCE_TBL
+LFTM.LFTM_C2FO_AWARD_FILE_NAMES_TBL
+","Cap=
+LSTS.LSTS_RCV_ADDITON_INFO_REF
+LSTS.LSTS_RCV_ADDITON_INFO
+APPS.LSTS_RECEI_ADDITON_INFO_PKG","cap=--LSTS_RECEI_ADDITON_INFO_PKG
+--lookup LOGI_CAPITALIZATION_INFO
+SELECT * FROM LSTS_RCV_ADDITON_INFO_REF;
+
+SELECT * FROM LSTS_RCV_ADDITON_INFO;","CL=
+
+SET SERVEROUTPUT ON;
+
+DECLARE
+    pBatchId     NUMBER := 1202105311466;
+    pStatus      VARCHAR2 (300);
+    pErrMsg      VARCHAR2 (300);
+    pRequestId   NUMBER;
+BEGIN
+    LFTP_RR_PUR_REQ_PKG.ipr_upload_data (pBatchId,
+                                              pStatus,
+                                              pErrMsg,
+                                              pRequestId);
+    DBMS_OUTPUT.PUT_LINE (pStatus || '      ' || pErrMsg || '      ' || pRequestId);
+END;
+
+select * from  LFTP_RR_CLOSED_LOOP_STG@LFTP_ORAODS where batch_id=1202105311466;
+
+select * from  LFTP.LFTP_RR_PUR_REQ_STG where batch_id=1202105311466;
+
+","comments=||'  ********  '||","conc=
+SELECT a.USER_CONCURRENT_PROGRAM_NAME,
+       a.CONCURRENT_PROGRAM_ID,
+       b.CONCURRENT_PROGRAM_NAME,
+       c.USER_EXECUTABLE_NAME,
+       d.APPLICATION_ID,
+       d.EXECUTION_FILE_NAME
+  FROM fnd_concurrent_programs_tl  a,
+       fnd_concurrent_programs     b,
+       fnd_executables_tl          c,
+       fnd_executables             d
+ WHERE     1 = 1
+       --       AND a.CONCURRENT_PROGRAM_ID = 1
+       AND a.USER_CONCURRENT_PROGRAM_NAME ='LOGI LSTAR Transaction Report-Mail Attachment'
+       AND a.CONCURRENT_PROGRAM_ID = b.CONCURRENT_PROGRAM_ID
+       AND b.EXECUTABLE_ID = c.EXECUTABLE_ID
+       AND d.EXECUTABLE_ID = c.EXECUTABLE_ID;","concp=  SELECT COLUMN_SEQ_NUM,
+         END_USER_COLUMN_NAME,
+         DESCRIPTION,
+         ENABLED_FLAG,
+         DEFAULT_VALUE,
+         REQUIRED_FLAG,
+         SECURITY_ENABLED_FLAG,
+         RANGE_CODE,
+         DISPLAY_FLAG,
+         DISPLAY_SIZE,
+         MAXIMUM_DESCRIPTION_LEN,
+         CONCATENATION_DESCRIPTION_LEN,
+         FORM_LEFT_PROMPT,
+         SRW_PARAM,
+         ROW_ID,
+         CREATED_BY,
+         DEFAULT_TYPE,
+         FORM_ABOVE_PROMPT,
+--         DESCRIPTIVE_FLEX_CONTEXT_CODE,
+         LAST_UPDATE_LOGIN,
+         CREATION_DATE,
+         LAST_UPDATED_BY,
+         LAST_UPDATE_DATE,
+         APPLICATION_COLUMN_NAME,
+         APPLICATION_ID,
+         FLEX_VALUE_SET_ID,
+         (select FLEX_VALUE_SET_NAME from  FND_FLEX_VALUE_SETS where FLEX_VALUE_SET_ID=vl.FLEX_VALUE_SET_ID) FLEX_VALUE_SET_NAME,
+         DESCRIPTIVE_FLEXFIELD_NAME,
+         SEGMENT_INSERT_FLAG,
+         SEGMENT_UPDATE_FLAG
+    FROM FND_DESCR_FLEX_COL_USAGE_VL vl
+   WHERE     1=1
+         AND (APPLICATION_ID,DESCRIPTIVE_FLEXFIELD_NAME)=(SELECT a.APPLICATION_ID,'$SRS$.'||b.CONCURRENT_PROGRAM_NAME
+  FROM fnd_concurrent_programs b, fnd_concurrent_programs_tl a
+ WHERE     1 = 1
+       AND b.CONCURRENT_PROGRAM_ID = a.CONCURRENT_PROGRAM_ID
+       AND a.USER_CONCURRENT_PROGRAM_NAME ='LOGI ASCP Summary Report 52 weeks'
+       --AND b.CONCURRENT_PROGRAM_ID =
+       )
+ORDER BY column_seq_num","concresp=  SELECT fcp.user_concurrent_program_name,
+         frg.request_group_name,
+         frtl.responsibility_name
+    FROM fnd_responsibility        fres,
+         fnd_responsibility_tl     frtl,
+         fnd_request_groups        frg,
+         fnd_request_group_units   frgu,
+         fnd_concurrent_programs_tl fcp
+   WHERE     1 = 1
+         AND frtl.LANGUAGE = USERENV ('LANG')
+         AND frtl.responsibility_id = fres.responsibility_id
+         AND frg.request_group_id = fres.request_group_id
+         AND frgu.request_group_id = frg.request_group_id
+         AND fcp.concurrent_program_id = frgu.request_unit_id
+         AND fcp.LANGUAGE = USERENV ('LANG')
+         AND fcp.user_concurrent_program_name = 'PO Output for Communication'
+ORDER BY 1, 2, 3;","concrun=SELECT a.address,s.status,s.username,s.osuser,a.sql_text,s.SID,a.SQL_ID,a.DISK_READS,a.BUFFER_GETS,a.CONCURRENCY_WAIT_TIME,a.USER_IO_WAIT_TIME,a.sql_fulltext
+  FROM v$sql a, v$session s
+ WHERE     s.sql_address = a.address
+       AND s.SID IN
+               (SELECT d.SID
+                  FROM apps.fnd_concurrent_requests   a,
+                       apps.fnd_concurrent_processes  b,
+                       v$process                      c,
+                       v$session                      d
+                      --v$sql e
+                 WHERE     a.controlling_manager = b.concurrent_process_id
+                       AND c.pid = b.oracle_process_id
+                       AND d.paddr = c.addr
+                       --AND d.sql_address = e.address
+                       AND a.request_id BETWEEN 4263313 AND 4263321
+                       and a.PHASE_CODE = 'R');","copy=cp /od01/bins/oracle/OA12DEV/fs_ne/inst/OA12DEV_us01u532/logs/appl/conc/2019-10-02/out/o185365197.txt ~/.
+cd ~
+pwd
+ls -ltr
+pwd
+strings fdfdds.o >> /home/conv/rvemula/rv.lc","cust=select * from lfnd_cust_log where 1=1 order by seq
+--truncate table lfnd.lfnd_cust_log;
+","cust1=apps.LFND_CUST_LOG_PKG.WRITE_CUST_LOG (357,' ',' '||DBMS_UTILITY.format_error_backtrace ||' ************ '||DBMS_UTILITY.format_error_stack );","cust2=
+DECLARE
+    g_object_id     NUMBER;
+    g_object_name   VARCHAR2 (100);
+BEGIN
+    SELECT object_id, object_name
+      INTO g_object_id, g_object_name
+      FROM all_objects
+     WHERE object_name = $$plsql_unit;
+
+    apps.LFND_CUST_LOG_PKG.WRITE_CUST_LOG (g_object_id,
+                                           g_object_name,
+                                           '' || SQLERRM);
+    apps.LFND_CUST_LOG_PKG.WRITE_CUST_LOG (
+        g_object_id,
+        g_object_name,
+        '' || DBMS_UTILITY.format_error_backtrace);
+    apps.LFND_CUST_LOG_PKG.WRITE_CUST_LOG (
+        g_object_id,
+        g_object_name,
+        '' || DBMS_UTILITY.format_error_stack);
+EXCEPTION
+    WHEN OTHERS
+    THEN
+        g_object_id := -1;
+        g_object_name := 'WRONG_IN';
+END;
+/
+",dev=apps/st0rm532@OA12DEV,"devtns= exanonprddb1-nklsy1-vip.db.nonprodsjc.oraclevcn.com
+1581
+ebs_OA12DEV",devunix=Aik6sai0aa,"env=. EBSapps.env Run","extract=SELECT dbms_lob.substr(DBMS_METADATA.GET_DDL ('TABLE', 'LFTP_RR_HSA_SUPPLIER', 'LFTP'),4000,1) FROM DUAL;","flush=ALTER SYSTEM FLUSH BUFFER_CACHE;
+ALTER SYSTEM FLUSH SHARED_POOL;
+EXEC DBMS_RESULT_CACHE.FLUSH;","grep=/patch/115/sql
+grep -i $POASLGEN$ *.???
+grep -Ri $OA12PRD$ $LBTS_TOP $LCON_TOP $LFND_TOP $LFTM_TOP $LFTP_TOP $LHTR_TOP $LINT_TOP $LMTC_TOP $LOTC_TOP $LSTS_TOP $LPLM_TOP $LEXT_TOP $LBOT_TOP
+select * from fnd_new_messages where MESSAGE_TEXT like '%%';","hz= SELECT p.party_id,
+          p.party_number,
+          p.party_type,
+          p.creation_date party_creation_date,
+          p.party_name,
+          c.account_number customer_number,
+          c.customer_type, --05162012flv.meaning customer_type,                --c.customer_type,05162012
+          c.customer_class_code,
+          c.sales_channel_code,
+          cs.status site_status,
+          csu.site_use_code,
+          csu.location,
+          loc.address1,
+          loc.address2,
+          loc.address3,
+          loc.address4,
+          loc.city,
+          loc.state,
+          loc.postal_code,
+          loc.county,
+          loc.country,
+          c.sales_channel_code rev_type,
+          csu.site_use_id,
+          ps.party_site_id,
+          c.cust_account_id,
+          cs.cust_acct_site_id 
+     FROM apps.hz_parties p,
+          apps.hz_party_sites ps,
+          apps.hz_cust_accounts c,
+          apps.hz_cust_acct_sites_all cs,
+          apps.hz_cust_site_uses_all csu,
+          apps.hz_locations loc 
+    WHERE     c.party_id = ps.party_id   
+          AND ps.location_id = loc.location_id
+          AND c.party_id = p.party_id
+          AND c.cust_account_id = cs.cust_account_id
+          AND cs.cust_acct_site_id = csu.cust_acct_site_id
+          AND cs.party_site_id = ps.party_site_id
+          and p.PARTY_NAME='Apple Asia Limited'","ind=SELECT  table_name,
+		index_name,
+		column_name,
+		column_position
+	FROM all_ind_columns a
+	WHERE 1=1
+	AND EXISTS (SELECT  1
+	FROM all_ind_columns b
+	WHERE table_name = upper (:tab_name)
+	AND column_name =upper('TRANSACTION_DATE')
+	AND a.index_name= b.index_name)
+	ORDER BY index_name,
+		column_position;
+		
+SELECT  table_name,
+		index_name,
+		column_name,
+		column_position
+	FROM all_ind_columns
+	WHERE table_name = upper (:tab_name)
+	AND column_name =upper('TRANSACTION_DATE')
+	ORDER BY index_name,
+		column_position;","jdr=
+BEGIN
+jdr_utils.printdocument(p_document => '/oracle/apps/per/irc/candidateSelfService/server/customizations/site/0/VisitorAM');
+END;
+/
+","kill=SELECT 'alter system kill session '''||SID||','||SERIAL#||'''' || ' IMMEDIATE' || ';' FROM V$SESSION WHERE SID IN (SELECT UNIQUE SID FROM V$ACCESS WHERE OBJECT IN ('LSTS_PO_COMMUNICATION_PKG'));
+ 
+ SELECT 'alter system kill session '''||SID||','||serial#||',@'|| inst_id || '''' || ' IMMEDIATE' || ';' FROM gv$session WHERE SID IN (SELECT UNIQUE SID FROM gv$access WHERE OBJECT= upper('LMTC_CLAIM_NOTIF_PKG'));
+   SELECT lo.session_id,
+         lo.oracle_username,
+         lo.os_user_name,
+         lo.process,
+         do.object_name,
+         DECODE (lo.locked_mode,
+                 0, 'None',
+                 1, 'Null',
+                 2, 'Row Share (SS)',
+                 3, 'Row Excl (SX)',
+                 4, 'Share',
+                 5, 'Share Row Excl (SSX)',
+                 6, 'Exclusive',
+                 TO_CHAR (lo.locked_mode))
+             mode_held,
+             vs.sid,
+             vs.serial#,
+             'ALTER SYSTEM KILL SESSION  ' ||vs.sid||','||vs.serial#||'  IMMEDIATE;' KILL_SESSION
+    FROM v$locked_object lo, dba_objects do, v$session vs 
+   WHERE lo.object_id = do.object_id
+   AND lo.session_id= vs.sid
+ORDER BY 1, 5;
+ 
+ ","lkp=select * from lfnd_lookups where  LOOKUP_TYPE = ''
+select * from  LFND_LOOKUP_KEYS where  LOOKUP_TYPE = ''
+select * from  LFND_LOOKUP_TYPES where  LOOKUP_TYPE = ''
+","lstar=  SELECT party.party_name, cu.ACCOUNT_NUMBER
+    FROM HZ_CUST_ACCOUNTS cu, HZ_PARTIES party
+   WHERE     cu.party_id = party.party_id
+   AND cu.ACCOUNT_NUMBER=224273;
+   
+ select * from hz_parties
+where party_name='MARVEL KT, LLC';
+
+select * from hz_cust_accounts 
+where party_id = 161315;
+
+SELECT attribute5,org_id,a.* FROM HZ_CUST_ACCT_SITES_ALL a
+where cust_account_id = 102505 ;
+
+select * from lbts_sn_detail 
+where partner_name = 'Marvel CT LLC';
+
+LSTAR_TRAN_REP_PKG.MAIN
+","new=OADEVTMP:- st0rm607
+PLDEVTMP:- St0rm608","noti= select * from wf_notifications where notification_id=;
+	   select * from wf_notification_attributes where notification_id=","oaf=FND
+FND_FUNC_ADMIN","OCIDEV=http://oci12oa12dev01.app.nonprodsjc.oraclevcn.com:8060/OA_HTML/AppsLocalLogin.jsp
+apps/st0rm532@ebs_OA12DEV
+OA12DEV=
+        (DESCRIPTION=
+            (ADDRESS_LIST=
+                (LOAD_BALANCE=YES)
+                (FAILOVER=YES)
+                (ADDRESS=(PROTOCOL=tcp)(HOST=exanonprddb1-nklsy2-vip.db.nonprodsjc.oraclevcn.com)(PORT=1581))
+                (ADDRESS=(PROTOCOL=tcp)(HOST=exanonprddb1-nklsy1-vip.db.nonprodsjc.oraclevcn.com)(PORT=1581))
+            )
+            (CONNECT_DATA=
+                (SERVICE_NAME=ebs_OA12DEV)
+            )
+        )
+conv/Aik6sai0aa","oedetails=SELECT *
+  FROM oe_order_headers_All
+ WHERE order_number = '61006330';
+
+SELECT *
+  FROM oe_order_lines_All
+ WHERE HEADER_ID = '17776040';
+
+SELECT *
+  FROM wsh_delivery_details
+ WHERE 1 = 1 AND SOURCE_HEADER_ID = 17776040;
+
+SELECT *
+  FROM wsh_delivery_assignments
+ WHERE 1 = 1 AND DELIVERY_DETAIL_ID = 213791807;
+
+SELECT STATUS_CODE
+  FROM wsh_new_deliveries
+ WHERE DELIVERY_ID = 46974473","password= set define off;
+
+set serveroutput on;
+
+DECLARE
+    v_user_name      VARCHAR2 (30) := UPPER ('RVEMULA');
+    v_new_password   VARCHAR2 (30) := 'oracle123';
+    v_status         BOOLEAN;
+BEGIN
+    v_status :=
+        fnd_user_pkg.ChangePassword (username      => v_user_name,
+                                     newpassword   => v_new_password);
+
+    IF v_status = TRUE
+    THEN
+        DBMS_OUTPUT.put_line (
+            'The password reset successfully for the User:' || v_user_name);
+        COMMIT;
+    ELSE
+        DBMS_OUTPUT.put_line (
+               'Unable to reset password due to'
+            || SQLCODE
+            || ' '
+            || SUBSTR (SQLERRM, 1, 100));
+        ROLLBACK;
+    END IF;
+END;
+/","per=SELECT a.address,
+       s.status,
+       s.username,
+       s.osuser,
+       a.sql_text,
+       s.SID
+  FROM v$sql a, v$session s
+ WHERE     s.sql_address = a.address
+       AND s.SID IN
+               (SELECT d.SID
+                  FROM apps.fnd_concurrent_requests   a,
+                       apps.fnd_concurrent_processes  b,
+                       v$process                      c,
+                       v$session                      d
+                     --v$sql                          e
+                 WHERE     a.controlling_manager = b.concurrent_process_id
+                       AND c.pid = b.oracle_process_id
+                       AND d.paddr = c.addr
+                       --AND d.sql_address = e.address
+                       AND a.request_id = 252446171
+                       AND a.PHASE_CODE = 'R');","poinfo= SELECT *
+  FROM po_headers_all
+ WHERE segment1 = '442209990';
+
+SELECT *
+  FROM po_lines_all
+ WHERE PO_HEADER_ID = 6035565;
+
+SELECT *
+  FROM po_line_locations_all
+ WHERE PO_HEADER_ID = 6035565;
+
+SELECT *
+  FROM po_distributions_all
+ WHERE PO_HEADER_ID = 6035565;
+ 
+SELECT pd.*
+  FROM po_headers_all         ph,
+       po_lines_all           pl,
+       po_line_locations_all  pll,
+       po_distributions_all   pd
+ WHERE     1 = 1
+       AND ph.PO_HEADER_ID = pl.PO_HEADER_ID
+       AND pl.PO_LINE_ID = pll.PO_LINE_ID
+       AND pll.LINE_LOCATION_ID = pd.LINE_LOCATION_ID
+       AND ph.segment1 = '442209990';
+	   
+SELECT 1
+ FROM po_requisition_headers_all  prh,
+	  po_headers_all              poh,
+	  po_lines_all                pl,
+	  po_line_locations_all       pll,
+	  po_distributions_all        pd,
+	  po_req_distributions_All    reqd,
+	  po_requisition_lines_All    reql
+WHERE     1 = 1
+	  AND reql.REQUISITION_HEADER_ID = prh.REQUISITION_HEADER_ID
+	  AND reql.REQUISITION_LINE_ID = reqd.REQUISITION_LINE_ID
+	  AND reqd.DISTRIBUTION_ID = pd.REQ_DISTRIBUTION_ID
+	  AND poh.PO_HEADER_ID = pl.PO_HEADER_ID
+	  AND pl.PO_LINE_ID = pll.PO_LINE_ID
+	  AND pll.LINE_LOCATION_ID = pd.LINE_LOCATION_ID
+	 -- AND NVL (poh.cancel_flag, 'N') = 'N'
+	  AND poh.authorization_status = 'APPROVED'
+	  AND poh.po_header_id = p_po_header_id;	   
+	   
+	   ","policy=exec mo_global.set_policy_context('S',81);","profile=  SELECT DISTINCT
+         POT.PROFILE_OPTION_NAME
+             PROFILE_CODE,
+         POT.USER_PROFILE_OPTION_NAME
+             PROFILE_NAME,
+         DECODE (a.profile_option_value,
+                 '1', '1 (may be Yes)',
+                 '2', '2 (may be No)',
+                 a.profile_option_value)
+             PF_VALUE,
+         DECODE (a.level_id,
+                 10001, 'Site',
+                 10002, 'Application',
+                 10003, 'Responsibility',
+                 10004, 'User',
+                 10005, 'Server',
+                 10006, 'Organization',
+                 a.level_id)
+             LEVEL_IDENTIFIER,
+         DECODE (a.level_id,
+                 10002, e.application_name,
+                 10003, c.responsibility_name,
+                 10004, D.USER_NAME,
+                 10005, F.HOST || '.' || F.DOMAIN,
+                 10006, g.name,
+                 '-')
+             LEVEL_NAME
+    FROM fnd_application_tl       e,
+         fnd_user                 d,
+         fnd_responsibility_tl    c,
+         fnd_profile_option_values a,
+         fnd_profile_options      b,
+         fnd_profile_options_tl   pot,
+         fnd_nodes                f,
+         hr_all_organization_units g
+   WHERE     1 = 1
+         AND UPPER (pot.USER_PROFILE_OPTION_NAME) LIKE
+                 UPPER ('LFTM C2FO Accessability')
+         AND pot.profile_option_name = b.profile_option_name
+         AND b.application_id = a.application_id(+)
+         AND b.profile_option_id = a.profile_option_id(+)
+         AND a.level_value = c.responsibility_id(+)
+         AND a.level_value = d.user_id(+)
+         AND a.level_value = e.application_id(+)
+         AND a.level_value = f.node_id(+)
+         AND a.level_value = g.organization_id(+)
+         AND pot.language = 'US'
+ORDER BY PROFILE_NAME,
+         LEVEL_IDENTIFIER,
+         LEVEL_NAME,
+         PF_VALUE;","profiles=G_PROFILEOPTION           Number :=fnd_profile.value('PROFILEOPTION') ;
+G_MFG_ORGANIZATION_ID     Number :=fnd_profile.value('MFG_ORGANIZATION_ID')   ; 
+G_ORG_ID                  Number :=fnd_profile.value('ORG_ID')                ;
+G_LOGIN_ID                Number :=fnd_profile.value('LOGIN_ID')              ;
+G_USER_ID                 Number :=fnd_profile.value('USER_ID')               ;
+G_USERNAME                Number :=fnd_profile.value('USERNAME')              ;
+G_CONCURRENT_REQUEST_ID   Number :=fnd_profile.value('CONCURRENT_REQUEST_ID') ;    
+G_GL_SET_OF_BKS_ID        Number :=fnd_profile.value('GL_SET_OF_BKS_ID')      ;
+G_SO_ORGANIZATION_ID      Number :=fnd_profile.value('SO_ORGANIZATION_ID')    ;
+G_APPL_SHRT_NAME          Number :=fnd_profile.value('APPL_SHRT_NAME')        ;
+G_RESP_NAME               Number :=fnd_profile.value('RESP_NAME')             ;
+G_RESP_ID                 Number :=fnd_profile.value('RESP_ID')               ;
+G_PER_BUSINESS_GROUP_ID","proresp=SELECT DISTINCT *
+  FROM (  SELECT b.user_profile_option_name               Long_Name,
+                 a.profile_option_name                    Short_Name,
+                 NVL (g.responsibility_name, c.level_value) Level_Value,
+                 c.PROFILE_OPTION_VALUE                   Profile_Value
+            FROM apps.fnd_profile_options      a,
+                 apps.FND_PROFILE_OPTIONS_tL   b,
+                 apps.FND_PROFILE_OPTION_VALUES c,
+                 apps.FND_USER                 d,
+                 apps.FND_USER                 e,
+                 apps.FND_RESPONSIBILITY_tL    g,
+                 apps.FND_APPLICATION          h
+           WHERE     1 = 1
+                 AND a.profile_option_name = b.profile_option_name
+                 AND a.profile_option_id = c.profile_option_id
+                 AND a.application_id = c.application_id
+                 AND c.last_updated_by = d.user_id(+)
+                 AND c.level_value = e.user_id(+)
+                 AND c.level_value = g.responsibility_id(+)
+                 AND c.level_value = h.application_id(+)
+                 AND c.level_id = 10003
+                 AND b.language = 'US'
+                 AND g.responsibility_name = 'OM Super User - North America'
+        ORDER BY b.user_profile_option_name, c.level_id);","rcv= SELECT rsh.*
+  FROM rcv_transactions           rct,
+       rcv_shipment_headers       rsh,
+       per_all_people_f           papf,
+       rcv_shipment_lines         rsl,
+       po_distributions_all       pd,
+       po_lines_all               pol,
+       po_line_locations_all      pll,
+       po_headers_all             ph,
+       ap_suppliers               aps,
+       ap_supplier_sites_all      assa,
+       hr_all_organization_units  hou,
+       hr_locations               hl,
+       fnd_lookup_values          flv_shipment,
+       fnd_lookup_values          flv_inspection,
+       fnd_lookup_values          flv_tran_type,
+       fnd_lookup_values          flv_ship_source,
+       po_lookup_codes            order_type,
+       po_line_types_b            plt
+ WHERE     1 = 1
+       AND ph.segment1 = '676264618'
+       AND rct.po_header_id = ph.po_header_id
+       AND rct.po_line_location_id = pll.line_location_id
+       AND rct.po_line_id = pol.po_line_id
+       AND pol.po_line_id = pd.po_line_id
+       AND rct.shipment_line_id = rsl.shipment_line_id
+       AND rsl.shipment_header_id = rsh.shipment_header_id
+       AND rct.po_distribution_id = pd.po_distribution_id
+       AND rct.employee_id = papf.person_id
+       AND SYSDATE BETWEEN papf.effective_start_date AND papf.effective_end_date","rcv1=
+       AND rsh.vendor_id = aps.vendor_id
+       AND ph.vendor_site_id = assa.vendor_site_id
+       AND hou.organization_id = ph.org_id
+       AND rct.deliver_to_location_id = hl.location_id
+       AND rsl.shipment_line_status_code = flv_shipment.lookup_code
+       AND flv_shipment.lookup_type = 'SHIPMENT LINE STATUS'
+       AND flv_shipment.language = USERENV ('LANG')
+       AND rct.inspection_status_code = flv_inspection.lookup_code
+       AND flv_inspection.lookup_type = 'INSPECTION STATUS'
+       AND flv_inspection.language = USERENV ('LANG')
+       AND rct.transaction_type = flv_tran_type.lookup_code
+       AND flv_tran_type.lookup_type = 'RCV TRANSACTION TYPE'
+       AND flv_tran_type.language = USERENV ('LANG')
+       AND flv_ship_source.lookup_type = 'SHIPMENT SOURCE TYPE'
+       AND flv_ship_source.language = USERENV ('LANG')
+       AND flv_ship_source.lookup_code = rsh.receipt_source_code
+       AND order_type.lookup_type = 'ORDER TYPE'
+       AND order_type.lookup_code = plt.order_type_lookup_code
+       AND pol.line_type_id = plt.line_type_id;
+	   ","reqgroup=SELECT DISTINCT a.user_concurrent_program_name,
+                a.description,
+                request_group_name,
+                e.responsibility_name
+  FROM fnd_concurrent_programs_tl  a,
+       fnd_request_groups          b,
+       fnd_request_group_units     c,
+       fnd_responsibility          d,
+       fnd_responsibility_tl       e
+ WHERE     a.concurrent_program_id = c.request_unit_id
+       AND b.request_group_id = c.request_group_id
+       AND b.request_group_id = d.request_group_id
+       AND d.responsibility_id = e.responsibility_id
+       AND a.application_id = b.application_id
+       AND b.application_id = c.application_id
+       AND d.application_id = e.application_id
+--       AND a.USER_CONCURRENT_PROGRAM_NAME like '%%'
+	   AND a.concurrent_program_id = :p_conc_program_id;","reqset=SELECT DISTINCT user_request_set_name
+  FROM fnd_request_sets_tl
+ WHERE request_set_id IN
+           (SELECT request_set_id
+              FROM fnd_request_set_programs
+             WHERE concurrent_program_id =
+                   (SELECT concurrent_program_id
+                      FROM fnd_concurrent_programs_tl
+                     WHERE UPPER (user_concurrent_program_name) = UPPER ('&enter_prog_name')));","requests=    SELECT FCP.CONCURRENT_PROGRAM_ID,
+         b.CONCURRENT_PROGRAM_NAME CP_SHORT_NAME,
+         c.USER_EXECUTABLE_NAME,
+         d.APPLICATION_ID,
+         d.EXECUTION_FILE_NAME,
+         FC.REQUESTED_BY,
+         FRT.RESPONSIBILITY_NAME,
+         FCP.USER_CONCURRENT_PROGRAM_NAME,
+         FA.APPLICATION_SHORT_NAME,
+         FA.APPLICATION_NAME,
+         FC.REQUEST_ID,
+         FC.REQUEST_DATE,
+         FC.ACTUAL_START_DATE,
+         FC.ACTUAL_COMPLETION_DATE,
+         ROUND ((FC.ACTUAL_COMPLETION_DATE - FC.ACTUAL_START_DATE) * 24)|| '-'||
+         ROUND ((FC.ACTUAL_COMPLETION_DATE - FC.ACTUAL_START_DATE) * 60 * 24)|| '-'|| 
+         ROUND ((FC.ACTUAL_COMPLETION_DATE - FC.ACTUAL_START_DATE) * 60* 60* 24)  IN_HOURS_MIN_SECOUNDS,
+         FC.STATUS_CODE,
+         FC.COMPLETION_TEXT,
+         FC.ARGUMENT_TEXT
+    FROM FND_CONCURRENT_REQUESTS   FC,
+         FND_RESPONSIBILITY_TL     FRT,
+         FND_APPLICATION_VL        FA,
+         FND_CONCURRENT_PROGRAMS_TL FCP,
+         fnd_concurrent_programs   b,
+         fnd_executables_tl        c,
+         fnd_executables           d
+   WHERE     1 = 1
+         AND FC.RESPONSIBILITY_ID = FRT.RESPONSIBILITY_ID
+         --AND FC.REQUESTED_BY = 1245
+         --AND FC.REQUEST_ID =
+         AND FC.RESPONSIBILITY_APPLICATION_ID = FA.APPLICATION_ID
+         AND FCP.CONCURRENT_PROGRAM_ID = FC.CONCURRENT_PROGRAM_ID
+--         AND FCP.USER_CONCURRENT_PROGRAM_NAME ='LOGI OCRM Calculate Deferred Amortization Program'
+         AND FCP.CONCURRENT_PROGRAM_ID = 218065
+         AND FCP.CONCURRENT_PROGRAM_ID = b.CONCURRENT_PROGRAM_ID
+         AND b.EXECUTABLE_ID = c.EXECUTABLE_ID
+         AND d.EXECUTABLE_ID = c.EXECUTABLE_ID
+ORDER BY FC.REQUEST_ID DESC;","SIT=https://ebssit.logitech.com
+
+TNS: OASIT=
+        (DESCRIPTION=
+            (ADDRESS_LIST=
+                (LOAD_BALANCE=YES)
+                (FAILOVER=YES)
+                (ADDRESS=(PROTOCOL=tcp)(HOST=172.31.129.188)(PORT=1521))
+                (ADDRESS=(PROTOCOL=tcp)(HOST=172.31.129.162)(PORT=1521))
+                (ADDRESS=(PROTOCOL=tcp)(HOST=172.31.129.136)(PORT=1521))
+            )
+            (CONNECT_DATA=
+                (SERVICE_NAME=ebs_OASIT)
+            )
+        )
+		
+FTP User  - conv / Conv@sit
+apps/ebs12sit","slt=select * from ","SOB=APPS.LOGI_SUPP_ONBRD_PKG
+LOTC_SUPP_ONBOARD_REQUEST 
+LOTC_PROSPECTIVE_SUPPLIER_REG 
+LOTC_PROS_SUPP_REG_ADD_INFO 
+LOTC_SUPP_DATA_MANAGEMENT 
+WHERE REGI_REQUEST_NUMBER=;","sobb=SELECT aps.vendor_name   VERDOR_NAME, 
+        apss.vendor_site_code VENDOR_SITE_CODE, 
+        ieb.bank_name BANK_NAME, 
+        iebb.bank_branch_name BANK_BRANCH_NAME, 
+        iebb.branch_number BRANCH_NUMBER, 
+        ieba.BANK_ACCOUNT_NUM BANK_ACCOUNT_NUMBER, 
+        ieba.BANK_ACCOUNT_NAME BANK_ACCOUNT_NAME 
+  FROM ap.ap_suppliers               aps, 
+       ap.ap_supplier_sites_all      apss, 
+       apps.iby_ext_bank_accounts    ieba, 
+       apps.iby_account_owners       iao, 
+       apps.iby_ext_banks_v          ieb, 
+       apps.iby_ext_bank_branches_v  iebb 
+ WHERE     aps.vendor_id = apss.vendor_id 
+       AND iao.account_owner_party_id = aps.party_id 
+       AND ieba.ext_bank_account_id = iao.ext_bank_account_id 
+       AND ieb.bank_party_id = iebb.bank_party_id 
+       AND ieba.branch_id = iebb.branch_party_id 
+       AND ieba.bank_id = ieb.bank_party_id 
+       AND ieb.bank_name = ''  
+       AND iebb.bank_branch_name = ''  
+       AND ieba.bank_account_num = '';
+	   ","SOBINT=APPS.LOTC_SUP_ON_BOARD_INT_PKG
+
+SELECT * FROM AP_SUPPLIERS_INT A,
+              AP_SUPPLIER_SITES_INT B
+ WHERE 1=1
+ AND A.VENDOR_INTERFACE_ID=B.VENDOR_INTERFACE_ID
+ AND VENDOR_NAME='';
+ 
+SELECT * FROM AP_SUPPLIERS WHERE VENDOR_NAME='';
+SELECT * FROM AP_SUPPLIER_SITES_ALL WHERE VENDOR_ID=
+IBY_TEMP_EXT_BANK_ACCTS WHERE CALLING_APP_UNIQUE_REF2;","soblog=select * from LOTC.LOTC_SUP_ONBDR_CUST_LOG
+--where RECORD_ID like '%%'
+ order by seq","sobup=
+UPDATE LOTC_SUPP_ONBOARD_REQUEST 
+SET REGISTRATION_STATUS='Rejected'
+WHERE REGI_REQUEST_NUMBER=
+/
+UPDATE LOTC.LOTC_PROS_SUPP_REG_ADD_INFO 
+SET SUBMITTED=NULL 
+WHERE REGI_REQUEST_NUMBER=
+/
+UPDATE LOTC.LOTC_PROSPECTIVE_SUPPLIER_REG 
+SET SUBMITTED=NULL,
+    ITEM_TYPE=NULL,
+	ITEM_KEY=NULL,
+	ITEM_KEY_BACKUP=NULL	
+	WHERE REGI_REQUEST_NUMBER=
+/
+","sql=WITH
+    excep
+    AS
+        (SELECT d.SID
+           FROM apps.fnd_concurrent_requests   a,
+                apps.fnd_concurrent_processes  b,
+                v$process                      c,
+                v$session                      d
+          WHERE     a.controlling_manager = b.concurrent_process_id
+                AND c.pid = b.oracle_process_id
+                AND d.paddr = c.addr
+                AND a.request_id = 284804624
+                AND a.PHASE_CODE = 'R')
+SELECT a.address,
+       s.status,
+       s.username,
+       s.osuser,
+       a.sql_text,
+       s.SID
+  FROM v$sql a, v$session s, excep e
+ WHERE s.sql_address = a.address AND s.SID = e.SID","stream=LOTC.LOTC_STREAMLABS_DIR_FILES
+LOTC.LOTC_STREAMLABS_XML_TAB
+LOTC.LOTC_STREAMLABS_INVOICE_HEADER
+LOTC.LOTC_STREAMLABS_INVOICE_LINES","tabs=SELECT df.tablespace_name
+           Tablespace,
+       totalusedspace
+           Used_MB,
+       (df.totalspace - tu.totalusedspace)
+           Free_MB,
+       df.totalspace
+           Total_MB,
+       ROUND (100 * ((df.totalspace - tu.totalusedspace) / df.totalspace))
+           Pct_Free
+  FROM (  SELECT tablespace_name, ROUND (SUM (bytes) / 1048576) TotalSpace
+            FROM dba_data_files
+        GROUP BY tablespace_name) df,
+       (  SELECT ROUND (SUM (bytes) / (1024 * 1024)) totalusedspace,
+                 tablespace_name
+            FROM dba_segments
+        GROUP BY tablespace_name) tu
+ WHERE df.tablespace_name = tu.tablespace_name;","url=  SELECT profile_option_value
+  FROM fnd_profile_option_values
+ WHERE profile_option_id =
+          (SELECT profile_option_id
+             FROM fnd_profile_options
+            WHERE profile_option_name = 'APPS_FRAMEWORK_AGENT')
+       AND level_value = 0;","url=SELECT profile_option_value
+  FROM fnd_profile_option_values
+ WHERE profile_option_id =
+          (SELECT profile_option_id
+             FROM fnd_profile_options
+            WHERE profile_option_name = 'APPS_FRAMEWORK_AGENT')
+       AND level_value = 0;","user= SELECT *
+  FROM fnd_user fu, PER_ALL_PEOPLE_F PAPF
+ WHERE 1 = 1 AND FU.EMPLOYEE_ID = PAPF.PERSON_ID AND Fu.USER_NAME = 'RVEMULA'","user1=SELECT PAAF.ASSIGNMENT_ID,
+       PAPF.PERSON_ID                        AS PERSON_ID,
+       FU.USER_ID                            AS USER_ID ,
+       PAPF.FIRST_NAME                       AS FIRST_NAME,
+       PAPF.LAST_NAME                        AS LAST_NAME,
+       PAPF.EMAIL_ADDRESS                    AS EMAIL_ADDRESS,
+       TO_CHAR (PPS.ACTUAL_TERMINATION_DATE) AS ACTUAL_TERMINATION_DATE,
+       TO_CHAR (PAPF.EFFECTIVE_START_DATE)   AS EFFECTIVE_START_DATE,
+       PAPF.EMPLOYEE_NUMBER                  AS EMPLOYEE_NUMBER,
+       TO_CHAR (PAPF.EFFECTIVE_END_DATE)     AS EFFECTIVE_END_DATE,
+       PAPF.BUSINESS_GROUP_ID                AS BUSINESS_GROUP_ID,
+       PAAF.SUPERVISOR_ID                    AS SUPERVISOR_ID,
+       PAPF.LAST_UPDATE_DATE                 papf_update_date,
+       PAAF.LAST_UPDATE_DATE                 paaf_update_date,
+       PPT.USER_PERSON_TYPE
+  FROM PER_ALL_PEOPLE_F             PAPF,
+       PER_ALL_ASSIGNMENTS_F        PAAF,
+       PER_PERIODS_OF_SERVICE       PPS,
+       HR.PER_PERSON_TYPE_USAGES_F  PPTU,
+       HR.PER_PERSON_TYPES          PPT,
+       FND_USER                     FU
+","user2= WHERE     PAAF.PERSON_ID = PAPF.PERSON_ID
+       AND PAAF.PRIMARY_FLAG = 'Y'
+       AND FU.EMPLOYEE_ID = PAPF.PERSON_ID
+       AND Fu.USER_NAME = 'RVEMULA'
+       AND PAPF.CURRENT_EMPLOYEE_FLAG = 'Y'
+       AND paaf.assignment_type != 'B'
+       AND pptu.effective_start_date BETWEEN papf.effective_start_date
+                                         AND papf.effective_end_date
+       AND papf.person_id = pptu.person_id
+       AND papf.person_type_id = pptu.person_type_id
+       AND pptu.person_type_id = ppt.person_type_id
+       AND papf.person_type_id = ppt.person_type_id
+       AND papf.business_group_id = ppt.business_group_id
+       AND PAAF.period_of_service_id = PPS.period_of_service_id
+       AND papf.person_id = pps.person_id
+       AND (   (    ppt.user_person_type LIKE 'Ex-employee%'
+                AND PPS.ACTUAL_TERMINATION_DATE BETWEEN paaf.effective_start_date
+                                                    AND PAAF.EFFECTIVE_END_DATE)
+            OR (    ppt.user_person_type LIKE 'Employee%'
+                AND TRUNC (SYSDATE) BETWEEN paaf.effective_start_date
+                                        AND PAAF.EFFECTIVE_END_DATE))
+       AND (   (    ppt.user_person_type LIKE 'Ex-employee%'
+                AND PPS.ACTUAL_TERMINATION_DATE BETWEEN papf.effective_start_date
+                                                    AND PAPF.EFFECTIVE_END_DATE)
+            OR (    ppt.user_person_type LIKE 'Employee%'
+                AND TRUNC (SYSDATE) BETWEEN papf.effective_start_date
+                                        AND PAPF.EFFECTIVE_END_DATE))
+ ","user3=  SELECT DISTINCT
+         PPF.TITLE,
+         PPF.FIRST_NAME,
+         PPF.LAST_NAME,
+         PPF.EMPLOYEE_NUMBER
+             EMPLOYEE_ID,
+         HR_GENERAL.DECODE_POSITION_LATEST_NAME (PAA.POSITION_ID)
+             POSITION_NAME,
+         (SELECT FULL_NAME
+            FROM PER_ALL_PEOPLE_F pap
+           WHERE     1 = 1
+                 AND PERSON_ID = PAA.SUPERVISOR_ID
+                 AND TRUNC (SYSDATE) BETWEEN TRUNC (pap.EFFECTIVE_START_DATE)
+                                         AND TRUNC (pap.EFFECTIVE_END_DATE))
+             SUPERVISOR_NAME,
+         PPF.DATE_OF_BIRTH,
+         PPF.EMAIL_ADDRESS,
+         (SELECT GROUP_NAME
+            FROM PAY_PEOPLE_GROUPS PPG, PER_ALL_ASSIGNMENTS_F PAA
+           WHERE     PAA.PEOPLE_GROUP_ID = PPG.PEOPLE_GROUP_ID
+                 AND PAA.PERSON_ID = PPF.PERSON_ID
+                 AND ROWNUM = 1)
+             OPERATING_UNIT
+    FROM PER_ALL_PEOPLE_F PPF, PER_ALL_ASSIGNMENTS_F PAA
+   WHERE     1 = 1
+         AND PPF.PERSON_ID = PAA.PERSON_ID
+         AND PPF.PERSON_ID = 60128
+         AND TRUNC (SYSDATE) BETWEEN TRUNC (Paa.EFFECTIVE_START_DATE)
+                                 AND TRUNC (Paa.EFFECTIVE_END_DATE)
+         AND TRUNC (SYSDATE) BETWEEN TRUNC (PPF.EFFECTIVE_START_DATE)
+                                 AND TRUNC (PPF.EFFECTIVE_END_DATE)
+ORDER BY PPF.EMPLOYEE_NUMBER;","userresp=SELECT fu.user_name,
+       fr.responsibility_name,
+       frv.responsibility_key,
+       furg.start_date,
+       furg.end_date
+  FROM fnd_user_resp_groups_direct  furg,
+       fnd_user                     fu,
+       fnd_responsibility_tl        fr,
+       fnd_responsibility_vl        frv
+ WHERE     fu.user_name = :user_name
+       AND furg.user_id = fu.user_id
+       AND furg.responsibility_id = fr.responsibility_id
+       AND furg.responsibility_id = frv.responsibility_id
+              AND fr.language = USERENV ('lang');","wf=WFLOAD apps/st0rm532@OA12DEV 0 Y DOWNLOAD LSUONBDR.wft LSUONBDR
+WFLOAD apps/st0rm532@OA12DEV 0 Y UPLOAD LSUONBDR.wft
+UPGRADE FORCE","wfclear=SELECT 'alter system kill session '''||SID||','||SERIAL#||'''' || ' IMMEDIATE' || ';' FROM V$SESSION WHERE SID IN (SELECT UNIQUE SID FROM V$ACCESS WHERE OBJECT IN ('LOGI_SUPP_ONBRD_PKG'));","wfupdate=UPDATE WF_RESOURCES
+SET TEXT='FND_RESP|FND|FNDWF_ADMIN|STANDARD'
+WHERE NAME = 'WF_ADMIN_ROLE'","XE=sqlplus / as sysdba
+STARTUP
+SHUTDOWN IMMEDIATE","bind=  SELECT DISTINCT sb.snap_id,
+                  sb.name,
+                  sn.end_interval_time,
+                  sb.value_string
+    FROM dba_hist_sqlbind sb, dba_hist_snapshot sn
+   WHERE     sb.sql_id = 'fsbhmvgvt0g9v'
+         AND sb.was_captured = 'YES'
+         AND sn.snap_id = sb.snap_id
+ORDER BY sb.snap_id, sb.name;
+
+Concurrent: Allow Debugging
+debug options: 
+SQL Trace-> sql trace with binds and waits 
+Reports Trace -> Log all possible trace information 
+
+","log=  SELECT a.*
+    FROM fnd_log_messages a, fnd_log_transaction_context con
+   WHERE     con.transaction_id = '261593995'
+         AND con.transaction_type = 'REQUEST'
+         AND con.transaction_context_id = a.transaction_context_id
+ORDER BY a.log_sequence
+Profile - Concurrent: Allow Debugging
+","status=  SELECT *
+    FROM (SELECT wias.item_type
+                     AS item_type,
+                 wias.item_key
+                     AS item_key,
+                 wias.process_activity
+                     AS process_activity,
+                 wias.ROWID
+                     AS row_id,
+                 'R'
+                     AS row_source,
+                 wias.notification_id
+                     AS notif_id,
+                 DECODE (wn.status,
+                         'OPEN', NVL (wn.more_info_role, wias.assigned_user),
+                         wias.assigned_user)
+                     AS assigned_user,
+                 wias.activity_status
+                     AS activity_status,
+                 wias.activity_result_code
+                     AS activity_result_code,
+                 wias.execution_time
+                     AS execution_time,
+                 wias.begin_date
+                     AS begin_date,
+                 wias.end_date
+                     AS end_date,
+                 wias.due_date
+                     AS due_date,
+                 wl.meaning
+                     AS status_display,
+                 wa.name
+                     AS activity_name,
+                 wa.display_name
+                     AS activity_display,
+                 wi.user_key
+                     AS user_key,
+                 wa2.name
+                     AS parent_activity,
+                 DECODE (wa2.name, 'ROOT', '', wa2.display_name)
+                     AS parent_activity_display_name,
+                 wa.TYPE
+                     AS activity_type,
+                 wf_fwkmon.getroleemailaddress (
+                     DECODE (
+                         wn.status,
+                         'OPEN', NVL (wn.more_info_role, wias.assigned_user),
+                         wias.assigned_user))
+                     AS role_email_address,
+                 wf_directory.getroledisplayname2 (
+                     DECODE (
+                         wn.status,
+                         'OPEN', NVL (wn.more_info_role, wias.assigned_user),
+                         wias.assigned_user))
+                     AS role_display_name,
+                 DECODE (wias.activity_result_code,
+                         '#NULL', 'WfNoCloseDate',
+                         'WfCloseDate')
+                     AS end_date_col_switch,
+                 DECODE (wias.activity_status,
+                         'ERROR', 'WfStatusErrorText',
+                         'WfStatusNoterrText')
+                     AS status_column_switch,
+                 DECODE (wias.activity_status,
+                         'ERROR', 'WfStatusError',
+                         'COMPLETE', 'WfStatusComplete',
+                         'SUSPEND', 'WfStatusSuspended',
+                         'WAITING', 'WfStatusWaiting',
+                         'DEFERRED', 'WfStatusDeferred',
+                         'NOTIFIED', 'WfStatusNotified',
+                         'WfStatusActive')
+                     AS image_column_switch,
+                 wf_core.activity_result (
+                     wa.result_type,
+                     DECODE (wias.activity_result_code,
+                             '#NULL', NULL,
+                             wias.activity_result_code))
+                     AS result_display,
+                 wpa.activity_item_type
+                     AS activity_item_type,
+                 DECODE (
+                     wa.TYPE,
+                     'NOTICE', DECODE (wias.activity_status,
+                                       'NOTIFIED', 'WfReassignEnabled',
+                                       'ERROR', 'WfReassignEnabled',
+                                       'WfReassignDisabled'),
+                     'WfReassignDisabled')
+                     AS reassign_switcher,
+                 DECODE (wias.activity_status,
+                         'NOTIFIED', 'N',
+                         'ACTIVE', 'N',
+                         'ERROR', 'N',
+                         'WAITING', 'N',
+                         'DEFERRED', 'N',
+                         'Y')
+                     AS select_disabled,
+                 DECODE (
+                     wa.TYPE,
+                     'PROCESS', DECODE (wias.activity_status,
+                                        'SUSPEND', 'WfResumeEnabled',
+                                        'COMPLETE', 'WfSuspResDisabled',
+                                        'WfSuspendEnabled'),
+                     'WfSuspResDisabled')
+                     AS suspend_switcher,
+                 wa.expand_role
+                     AS expand_role,
+                 DECODE (
+                     wn.status,
+                     'OPEN', NVL2 (
+                                 wn.more_info_role,
+                                 wf_core.TRANSLATE ('WFNTF_MOREINFO_REQUESTED'),
+                                 wnl.meaning),
+                     wnl.meaning)
+                     AS notification_status
+            FROM wf_item_activity_statuses wias
+                 LEFT JOIN wf_notifications wn
+                     ON wias.notification_id = wn.notification_id
+                 LEFT JOIN wf_lookups wnl
+                     ON     wnl.lookup_code = wn.status
+                        AND wnl.lookup_type = 'WF_NOTIFICATION_STATUS',
+                 wf_lookups               wl,
+                 wf_items                 wi,
+                 wf_activities_vl         wa,
+                 wf_process_activities    wpa,
+                 wf_activities_vl         wa2
+           WHERE     wl.lookup_code = wias.activity_status
+                 AND wl.lookup_type = 'WFENG_STATUS'
+                 AND wias.item_type = wi.item_type
+                 AND wias.item_key = wi.item_key
+                 AND wias.process_activity = wpa.instance_id
+                 AND wpa.activity_name = wa.name
+                 AND wpa.activity_item_type = wa.item_type
+                 AND wi.begin_date BETWEEN wa.begin_date
+                                       AND NVL (wa.end_date, wi.begin_date)
+                 AND wpa.process_name = wa2.name
+                 AND wpa.process_item_type = wa2.item_type
+                 AND wpa.process_version = wa2.version
+                 AND wias.item_type = :item_type
+                 AND wias.item_key = :item_key","status1=UNION ALL
+          SELECT wiash.item_type
+                     AS item_type,
+                 wiash.item_key
+                     AS item_key,
+                 wiash.process_activity
+                     AS process_activity,
+                 wiash.ROWID
+                     AS row_id,
+                 'H'
+                     AS row_source,
+                 wiash.notification_id
+                     AS notif_id,
+                 DECODE (wn.status,
+                         'OPEN', NVL (wn.more_info_role, wiash.assigned_user),
+                         wiash.assigned_user)
+                     AS assigned_user,
+                 wiash.activity_status
+                     AS activity_status,
+                 wiash.activity_result_code
+                     AS activity_result_code,
+                 wiash.execution_time
+                     AS execution_time,
+                 wiash.begin_date
+                     AS begin_date,
+                 wiash.end_date
+                     AS end_date,
+                 wiash.due_date
+                     AS due_date,
+                 wl.meaning
+                     AS status_display,
+                 wa.name
+                     AS activity_name,
+                 wa.display_name
+                     AS activity_display,
+                 wi.user_key
+                     AS user_key,
+                 wa2.name
+                     AS parent_activity,
+                 DECODE (wa2.name, 'ROOT', '', wa2.display_name)
+                     AS parent_activity_display_name,
+                 wa.TYPE
+                     AS activity_type,
+                 wf_fwkmon.getroleemailaddress (
+                     DECODE (
+                         wn.status,
+                         'OPEN', NVL (wn.more_info_role, wiash.assigned_user),
+                         wiash.assigned_user))
+                     AS role_email_address,
+                 wf_directory.getroledisplayname2 (
+                     DECODE (
+                         wn.status,
+                         'OPEN', NVL (wn.more_info_role, wiash.assigned_user),
+                         wiash.assigned_user))
+                     AS role_display_name,
+                 DECODE (wiash.activity_result_code,
+                         '#NULL', 'WfNoCloseDate',
+                         'WfCloseDate')
+                     AS end_date_col_switch,
+                 DECODE (wiash.activity_status,
+                         'ERROR', 'WfStatusErrorText',
+                         'WfStatusNoterrText')
+                     AS status_column_switch,
+                 DECODE (wiash.activity_status,
+                         'ERROR', 'WfStatusError',
+                         'COMPLETE', 'WfStatusComplete',
+                         'SUSPEND', 'WfStatusSuspended',
+                         'WAITING', 'WfStatusWaiting',
+                         'DEFERRED', 'WfStatusDeferred',
+                         'NOTIFIED', 'WfStatusNotified',
+                         'WfStatusActive')
+                     AS image_column_switch,
+                 wf_core.activity_result (
+                     wa.result_type,
+                     DECODE (wiash.activity_result_code,
+                             '#NULL', NULL,
+                             wiash.activity_result_code))
+                     AS result_display,
+                 wpa.activity_item_type
+                     AS activity_item_type,
+                 DECODE (
+                     wa.TYPE,
+                     'NOTICE', DECODE (wiash.activity_status,
+                                       'NOTIFIED', 'WfReassignEnabled',
+                                       'ERROR', 'WfReassignEnabled',
+                                       'WfReassignDisabled'),
+                     'WfReassignDisabled')
+                     AS reassign_switcher,
+                 DECODE (wiash.activity_status,
+                         'NOTIFIED', 'N',
+                         'ACTIVE', 'N',
+                         'ERROR', 'N',
+                         'WAITING', 'N',
+                         'DEFERRED', 'N',
+                         'Y')
+                     AS select_disabled,
+                 DECODE (
+                     wa.TYPE,
+                     'PROCESS', DECODE (wiash.activity_status,
+                                        'SUSPEND', 'WfResumeEnabled',
+                                        'COMPLETE', 'WfSuspResDisabled',
+                                        'WfSuspendEnabled'),
+                     'WfSuspResDisabled')
+                     AS suspend_switcher,
+                 wa.expand_role
+                     AS expand_role,
+                 DECODE (
+                     wn.status,
+                     'OPEN', NVL2 (
+                                 wn.more_info_role,
+                                 wf_core.TRANSLATE ('WFNTF_MOREINFO_REQUESTED'),
+                                 wnl.meaning),
+                     wnl.meaning)
+                     AS notification_status
+            FROM wf_item_activity_statuses_h wiash
+                 LEFT JOIN wf_notifications wn
+                     ON wiash.notification_id = wn.notification_id
+                 LEFT JOIN wf_lookups wnl
+                     ON     wnl.lookup_code = wn.status
+                        AND wnl.lookup_type = 'WF_NOTIFICATION_STATUS',
+                 wf_lookups                 wl,
+                 wf_items                   wi,
+                 wf_activities_vl           wa,
+                 wf_process_activities      wpa,
+                 wf_activities_vl           wa2
+           WHERE     wl.lookup_code = wiash.activity_status
+                 AND wl.lookup_type = 'WFENG_STATUS'
+                 AND wiash.item_type = wi.item_type
+                 AND wiash.item_key = wi.item_key
+                 AND wiash.process_activity = wpa.instance_id
+                 AND wpa.activity_name = wa.name
+                 AND wpa.activity_item_type = wa.item_type
+                 AND wi.begin_date BETWEEN wa.begin_date
+                                       AND NVL (wa.end_date, wi.begin_date)
+                 AND wpa.process_name = wa2.name
+                 AND wpa.process_item_type = wa2.item_type
+                 AND wpa.process_version = wa2.version
+                 AND wiash.item_type = :item_type
+                 AND wiash.item_key = :item_key) qrslt
+ORDER BY 11 DESC, 10 DESC"
